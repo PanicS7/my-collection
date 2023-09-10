@@ -23,7 +23,6 @@ const Signup = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {error && error}
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col">
           <div className="text-center">
@@ -61,6 +60,7 @@ const Signup = () => {
               </div>
               <div className="form-control mt-6">
                 <button className="btn btn-primary">Signup</button>
+                {error && <div className="badge badge-error gap-2 mt-10">{error}</div>}
               </div>
             </div>
           </div>
