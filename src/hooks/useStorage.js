@@ -30,12 +30,13 @@ const useStorage = () => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
+          setProgress(progress)
         });
       }
     );
   };
 
-  return { progress, error, url, startUpload };
+  return { progress, error, startUpload };
 };
 
 export default useStorage;
