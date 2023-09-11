@@ -5,6 +5,7 @@ const UploadForm = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const { startUpload, progress } = useStorage()
   const [selectedValue, setSelectedValue] = useState("")
+  const [title, setTitle] = useState("")
 
   const handleFileChange = (e) => {
     if(e.target.files && e.target.files[0]) {
@@ -13,15 +14,20 @@ const UploadForm = () => {
     }
   }
 
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value)
+  }
+
   const handleUpload = (e) => {
     e.preventDefault()
 
-    if(selectedFile) {
-      startUpload(selectedFile)
+    if(selectedFile && title) {
+      startUpload(selectedFile, title)
     }
 
     setSelectedFile(null)
     setSelectedValue("")
+    setTitle("")
   }
 
   return (
@@ -32,13 +38,17 @@ const UploadForm = () => {
       >
         <input
           type="text"
+          value={title}
           placeholder="Enter title"
+          onChange={handleTitleChange}
+          required
           className="input input-bordered w-full max-w-xs"
         />
         <input
           type="file"
           onChange={handleFileChange}
           value={selectedValue}
+          required
           className="file-input file-input-bordered w-full max-w-xs"
         />
         { progress === 100 && 
