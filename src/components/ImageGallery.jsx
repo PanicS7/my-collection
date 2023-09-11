@@ -1,17 +1,38 @@
+import { useAuth } from "../hooks/useAuth";
+import useFirestore from "../hooks/useFirestore";
+
 const ImageGallery = () => {
-  return (
-    <div className="grid md:grid-cols-3 justify-center gap-4 mt-10">
-      <div className="card w-96 bg-base-100 shadow-xl bg-red-800">
-        <div className="card-body items-center">
-          <h2 className="card-title text-white">Title</h2>
-        </div>
-        <figure>
-          <img
-            src="https://images.unsplash.com/photo-1693824113540-229fee32c238?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
-            alt="Shoes"
-          />
-        </figure>
+  const { docs: images, isLoading } = useFirestore("images");
+  const { user } = useAuth()
+
+  if (isLoading) {
+    return (
+      <div className="text-center mt-10">
+        <progress className="progress w-56"></progress>
       </div>
+    );
+  }
+
+  return (
+    <div className="grid md:grid-cols-3 justify-center gap-3 mt-10">
+      {images.map((image) => {
+        if(user.email === image.email) {
+          return (
+            <div className="card w-full bg-base-100 shadow-xl bg-red-800" key={image.imageUrl}>
+              <div className="card-body items-center max-h-[4rem] flex justify-center">
+                <h2 className="card-title text-white">{image.title}</h2>
+              </div>
+              <figure className="max-h-[11rem]">
+                <img
+                  src={image.imageUrl}
+                  alt={image.title}
+                />
+              </figure>
+            </div>
+            )
+          }
+        }
+      )}
     </div>
   );
 };
