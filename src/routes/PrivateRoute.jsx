@@ -1,7 +1,8 @@
 import { useAuth } from "../hooks/useAuth"
 import { Navigate } from "react-router-dom"
+import PropTypes from 'prop-types';
 
-export const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({children}) => {
   const user = useAuth()
 
   if(!(user.user)) {
@@ -10,3 +11,9 @@ export const PrivateRoute = ({ children }) => {
 
   return children
 }
+
+PrivateRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export { PrivateRoute }
