@@ -20,7 +20,7 @@ const Signup = () => {
       console.log(error.code)
       if(error.code === "auth/email-already-in-use") {
         await signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(() => {
           // Signed in 
           navigate("/")
         })
