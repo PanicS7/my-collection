@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../firebase/config"
 import { useNavigate } from "react-router-dom"
 
@@ -17,6 +17,17 @@ const Signup = () => {
       navigate("/")
    } catch(error) {
       setError(error.message)
+      console.log(error.code)
+      if(error.code === "auth/email-already-in-use") {
+        await signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in 
+          navigate("/")
+        })
+        .catch((error) => {
+          setError(error.message)
+        });
+      }
    }
 
   };
