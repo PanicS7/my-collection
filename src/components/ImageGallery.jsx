@@ -3,7 +3,7 @@ import useFirestore from "../hooks/useFirestore";
 
 const ImageGallery = () => {
   const { docs: images, isLoading } = useFirestore("images");
-  const { user } = useAuth()
+  const { user } = useAuth();
 
   if (isLoading) {
     return (
@@ -14,26 +14,32 @@ const ImageGallery = () => {
   }
 
   return (
-    <div className="grid md:grid-cols-3 justify-center gap-3 mt-10">
+    <div className="grid md:grid-cols-3 justify-center gap-3 my-10">
       {images.map((image) => {
-        if(user.email === image.email) {
+        if (user.email === image.email) {
           return (
-            <div className="card w-full bg-base-100 shadow-xl bg-red-800" key={image.imageUrl}>
-              <div className="card-body items-center max-h-[5rem] flex justify-center">
-                <h2 className="card-title text-white">Title: {image.title}</h2>
-                <p className="text-white">Category: {image.category}</p>
+            <div className="bg-red-500 rounded-xl">
+              <div class="p-3">
+                <div class="mb-2 flex flex-col items-center justify-between">
+                  <p class="block font-sans text-white font-medium leading-relaxed text-blue-gray-900 antialiased">
+                    {image.category}
+                  </p>
+                  <p class="block font-sans text-white font-medium leading-relaxed text-blue-gray-900 antialiased">
+                    {image.title}
+                  </p>
+                </div>
               </div>
-              <figure className="max-h-[11rem]">
+              <div class="relative h-96 overflow-hidden bg-white bg-clip-border text-gray-700">
                 <img
                   src={image.imageUrl}
                   alt={image.title}
+                  class="h-full w-full object-cover"
                 />
-              </figure>
+              </div>
             </div>
-            )
-          }
+          );
         }
-      )}
+      })}
     </div>
   );
 };
