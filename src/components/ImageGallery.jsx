@@ -18,22 +18,22 @@ const ImageGallery = () => {
       {images.map((image) => {
         if (user.email === image.email) {
           return (
-            <div className="bg-red-500 rounded-xl">
-              <div class="p-3">
-                <div class="mb-2 flex flex-col items-center justify-between">
-                  <p class="block font-sans text-white font-medium leading-relaxed text-blue-gray-900 antialiased">
+            <div className="bg-red-500 rounded-xl" key={image.imageUrl}>
+              <div className="p-3">
+                <div className="mb-2 flex flex-col items-center justify-between">
+                  <p className="block font-sans text-white font-medium leading-relaxed text-blue-gray-900 antialiased">
                     {image.category}
                   </p>
-                  <p class="block font-sans text-white font-medium leading-relaxed text-blue-gray-900 antialiased">
+                  <p className="block font-sans text-white font-medium leading-relaxed text-blue-gray-900 antialiased">
                     {image.title}
                   </p>
                 </div>
               </div>
-              <div class="relative h-96 overflow-hidden bg-white bg-clip-border text-gray-700">
+              <div className="relative h-96 overflow-hidden bg-white bg-clip-border text-gray-700">
                 <img
                   src={image.imageUrl}
                   alt={image.title}
-                  class="h-full w-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               </div>
             </div>
