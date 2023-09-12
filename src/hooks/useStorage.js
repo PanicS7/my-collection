@@ -10,7 +10,7 @@ const useStorage = () => {
   const [error, setError] = useState(null);
   const { user } = useAuth()
 
-  const startUpload = (file, title) => {
+  const startUpload = (file, title, category) => {
     if (!file) {
       return;
     }
@@ -36,7 +36,8 @@ const useStorage = () => {
         await addDoc(collection(db, "images"), {
           imageUrl: downloadURL,
           userEmail: user.email,
-          title: title
+          title: title,
+          category: category
         });
       }
     );

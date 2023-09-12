@@ -19,8 +19,9 @@ const ImageGallery = () => {
         if(user.email === image.email) {
           return (
             <div className="card w-full bg-base-100 shadow-xl bg-red-800" key={image.imageUrl}>
-              <div className="card-body items-center max-h-[4rem] flex justify-center">
-                <h2 className="card-title text-white">{image.title}</h2>
+              <div className="card-body items-center max-h-[5rem] flex justify-center">
+                <h2 className="card-title text-white">Title: {image.title}</h2>
+                <p className="text-white">Category: {image.category}</p>
               </div>
               <figure className="max-h-[11rem]">
                 <img

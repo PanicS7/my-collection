@@ -6,6 +6,7 @@ const UploadForm = () => {
   const { startUpload, progress } = useStorage()
   const [selectedValue, setSelectedValue] = useState("")
   const [title, setTitle] = useState("")
+  const [category, setCategory] = useState("")
 
   const handleFileChange = (e) => {
     if(e.target.files && e.target.files[0]) {
@@ -18,16 +19,21 @@ const UploadForm = () => {
     setTitle(e.target.value)
   }
 
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value)
+  }
+
   const handleUpload = (e) => {
     e.preventDefault()
 
-    if(selectedFile && title) {
-      startUpload(selectedFile, title)
+    if(selectedFile && title && category) {
+      startUpload(selectedFile, title, category)
     }
 
     setSelectedFile(null)
     setSelectedValue("")
     setTitle("")
+    setCategory("")
   }
 
   return (
@@ -36,6 +42,14 @@ const UploadForm = () => {
         onSubmit={handleUpload}
         className="flex items-center flex-col gap-8"
       >
+        <input
+          type="text"
+          value={category}
+          placeholder="Enter category name"
+          onChange={handleCategoryChange}
+          required
+          className="input input-bordered w-full max-w-xs"
+        />
         <input
           type="text"
           value={title}

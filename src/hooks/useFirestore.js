@@ -18,8 +18,9 @@ const useFirestore = (collectionName) => {
             const imageUrl = doc.data().imageUrl
             const title = doc.data().title
             const email = doc.data().userEmail
+            const category = doc.data().category
 
-            images.push({ imageUrl, title, email })
+            images.push({ imageUrl, title, email, category })
           });
           setDocs(images)
           setIsLoading(false)
