@@ -1,4 +1,3 @@
-import { useAuth } from "../hooks/useAuth";
 import useFirestore from "../hooks/useFirestore";
 
 const ImageGallery = () => {
