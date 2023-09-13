@@ -6,7 +6,6 @@ import { useAuth } from "../hooks/useAuth";
 const useFirestore = (collectionName) => {
   const [docs, setDocs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [itemCount, setItemCount] = useState(0);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -14,7 +13,9 @@ const useFirestore = (collectionName) => {
 
     const getData = async () => {
       try {
-        const q = query(collection(db, collectionName));
+        const coll = collection(db, collectionName);
+        const q = query(coll, where("userEmail", "==", user.email));
+
         unsubscribe = onSnapshot(q, (querySnapshot) => {
           const images = [];
           querySnapshot.forEach((doc) => {
@@ -34,20 +35,12 @@ const useFirestore = (collectionName) => {
       }
     };
 
-    const getItemCount = async () => {
-      const coll = collection(db, collectionName);
-      const q = query(coll, where("userEmail", "==", user.email));
-      const snapshot = await getCountFromServer(q);
-      setItemCount(snapshot.data().count)
-    }
-
     getData()
-    getItemCount()
 
     return () => unsubscribe && unsubscribe()
   }, [collectionName, user.email]);
 
-  return { docs, isLoading, itemCount };
+  return { docs, isLoading };
 };
 
 export default useFirestore;
